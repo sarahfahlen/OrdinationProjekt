@@ -131,9 +131,22 @@ public class DataService
     }
 
     //Sarah
-    public PN OpretPN(int patientId, int laegemiddelId, double antal, DateTime startDato, DateTime slutDato) {
-        // TODO: Implement!
-        return null!;
+    public PN OpretPN(int patientId, int laegemiddelId, double antal, DateTime startDato, DateTime slutDato)
+    {
+        Patient patient = db.Patienter.Find(patientId);
+            if (patient == null)
+                throw new ArgumentException("Patient findes ikke");
+        Laegemiddel laegemiddel = db.Laegemiddler.Find(laegemiddelId);
+            if (laegemiddel == null)
+                throw new ArgumentException("Lægemiddel findes ikke");
+
+        PN pn = new PN(startDato, slutDato, antal, laegemiddel);
+        
+        db.PNs.Add(pn);
+        patient.ordinationer.Add(pn);
+        db.SaveChanges();
+        
+        return pn;
     }
 
     //Enni
@@ -157,6 +170,7 @@ public class DataService
         
         DagligSkæv ordination = new DagligSkæv(startDato, slutDato, laegemiddel, doser);
 
+        db.DagligSkæve.Add(ordination);
         patient.ordinationer.Add(ordination);
         
         db.SaveChanges();
