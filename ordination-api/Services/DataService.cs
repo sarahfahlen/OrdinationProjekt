@@ -130,11 +130,13 @@ public class DataService
         return db.Laegemiddler.ToList();
     }
 
+    //Sarah
     public PN OpretPN(int patientId, int laegemiddelId, double antal, DateTime startDato, DateTime slutDato) {
         // TODO: Implement!
         return null!;
     }
 
+    //Enni
     public DagligFast OpretDagligFast(int patientId, int laegemiddelId, 
         double antalMorgen, double antalMiddag, double antalAften, double antalNat, 
         DateTime startDato, DateTime slutDato) {
@@ -143,6 +145,7 @@ public class DataService
         return null!;
     }
 
+    //Frede
     public DagligSkæv OpretDagligSkaev(int patientId, int laegemiddelId, Dosis[] doser, DateTime startDato, DateTime slutDato) {
         // TODO: Implement!
         return null!;
@@ -154,6 +157,7 @@ public class DataService
         return null!;
     }
 
+    //Maskinen
     /// <summary>
     /// Den anbefalede dosis for den pågældende patient, per døgn, hvor der skal tages hensyn til
 	/// patientens vægt. Enheden afhænger af lægemidlet. Patient og lægemiddel må ikke være null.
