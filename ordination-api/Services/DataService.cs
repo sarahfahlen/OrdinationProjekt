@@ -152,10 +152,22 @@ public class DataService
     //Enni
     public DagligFast OpretDagligFast(int patientId, int laegemiddelId, 
         double antalMorgen, double antalMiddag, double antalAften, double antalNat, 
-        DateTime startDato, DateTime slutDato) {
-
-        // TODO: Implement!
-        return null!;
+        DateTime startDato, DateTime slutDato)
+    {
+        Patient patient = db.Patienter.Find(patientId);
+        if (patient == null)
+            throw new ArgumentException("Patient findes ikke");
+        
+        Laegemiddel laegemiddel = db.Laegemiddler.Find(laegemiddelId);
+        if (laegemiddel == null)
+            throw new ArgumentException("Lægemiddel findes ikke");
+        
+        DagligFast ordination = new DagligFast(startDato, slutDato, laegemiddel, antalMorgen, antalMiddag, antalAften, antalNat);
+        db.DagligFaste.Add(ordination);
+        
+        patient.ordinationer.Add(ordination);
+        db.SaveChanges();
+        return ordination;
     }
     
     public DagligSkæv OpretDagligSkaev(int patientId, int laegemiddelId, Dosis[] doser, DateTime startDato, DateTime slutDato)
