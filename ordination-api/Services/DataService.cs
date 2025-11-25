@@ -144,11 +144,24 @@ public class DataService
         // TODO: Implement!
         return null!;
     }
+    
+    public DagligSkæv OpretDagligSkaev(int patientId, int laegemiddelId, Dosis[] doser, DateTime startDato, DateTime slutDato)
+    {
+        Patient patient = db.Patienter.Find(patientId);
+        if (patient == null)
+            throw new ArgumentException("Patient findes ikke");
+        
+        Laegemiddel laegemiddel = db.Laegemiddler.Find(laegemiddelId);
+        if (laegemiddel == null)
+            throw new ArgumentException("Lægemiddel findes ikke");
+        
+        DagligSkæv ordination = new DagligSkæv(startDato, slutDato, laegemiddel, doser);
 
-    //Frede
-    public DagligSkæv OpretDagligSkaev(int patientId, int laegemiddelId, Dosis[] doser, DateTime startDato, DateTime slutDato) {
-        // TODO: Implement!
-        return null!;
+        patient.ordinationer.Add(ordination);
+        
+        db.SaveChanges();
+
+        return ordination;
     }
 
     //den skal kalde PN's giv dosis - antag enten at det er en PN eller tjek
