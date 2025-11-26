@@ -189,11 +189,20 @@ public class DataService
 
         return ordination;
     }
-
-    //den skal kalde PN's giv dosis - antag enten at det er en PN eller tjek
+    
+    //Her kan implementeres at der er overskredet daglig dosis anbefaling
     public string AnvendOrdination(int id, Dato dato) {
-        // TODO: Implement!
-        return null!;
+        var ordination = db.Ordinationer.Find(id);
+        if (ordination == null)
+            throw new ArgumentException("Ordination findes ikke");
+        if (ordination is not PN pn)
+            throw new ArgumentException("Ordination er ikke af typen PN");
+        bool resultat = pn.givDosis(dato);
+        db.SaveChanges();
+        if (resultat)
+            return "Dosis givet";
+        else
+            return "Dato ligger uden for gyldighedsperioden";
     }
 
     //Maskinen
