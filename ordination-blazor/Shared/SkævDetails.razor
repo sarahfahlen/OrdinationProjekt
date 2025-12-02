@@ -1,5 +1,4 @@
 ﻿@namespace ordinationsapp.Shared
-
 @inherits LayoutComponentBase
 
 @using ordinationsapp.Data;
@@ -11,29 +10,56 @@
 }
 else
 {
-    <h3>Ordinationsdetaljer</h3>
-    <p>Type: Daglig Skæv</p>
-    <p>Startdato: @skæv.startDen</p>
-    <p>Slutdato: @skæv.slutDen</p>
-    <p>Lægemiddel: @skæv.laegemiddel</p>
-    <p>Døgndosis: @skæv.doegnDosis()</p>
-    <p>Samlet dosis: @skæv.samletDosis()</p>
-    <pre>
-        @DoserText()
-    </pre>
+    <div class="details-card">
+
+        <h3 class="details-title">Ordinationsdetaljer</h3>
+
+        <div class="details-row">
+            <span class="details-label">Type:</span>
+            <span class="details-value">Daglig Skæv</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Startdato:</span>
+            <span class="details-value">@skæv.startDen</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Slutdato:</span>
+            <span class="details-value">@skæv.slutDen</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Lægemiddel:</span>
+            <span class="details-value">@skæv.laegemiddel</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Døgndosis:</span>
+            <span class="details-value">@skæv.doegnDosis()</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Samlet dosis:</span>
+            <span class="details-value">@skæv.samletDosis()</span>
+        </div>
+
+        <h4 class="details-subtitle">Doser</h4>
+
+        <div class="dose-list">
+            @foreach (var dosis in skæv.doser)
+            {
+                <div class="dose-item">
+                    <span class="dose-time">@dosis.tid.ToString("HH.mm")</span>
+                    <span class="dose-amount">@dosis.antal</span>
+                </div>
+            }
+        </div>
+
+    </div>
 }
 
 @code {
     [Parameter]
     public DagligSkæv? skæv { get; set; }
-
-    private string DoserText() {
-        if (skæv == null) return "";
-
-        string doser = "";
-        foreach (Dosis dosis in skæv.doser) {
-            doser += dosis.ToString() + "\n";
-        }
-        return doser;
-    }
 }

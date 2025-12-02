@@ -3,57 +3,84 @@
 @using ordinationsapp.Data;
 @inject ApiService apiService
 
+
 @page "/Opret"
 
-<div class="container">
+<div class="opret-wrapper">
 
-    @if (PageState == State.Start) {
-        <h1>Opret ordination</h1>
+    @if (PageState == State.Start)
+    {
+        <h1 class="opret-title">Opret ordination</h1>
 
-        <br />
+        <div class="opret-grid">
 
-        <div class="row">
-            <div class="col-md-4 border p-3">
-                <h3>Vælg patient</h3>
+            <div class="opret-card">
+                <h3 class="opret-selection-title">Vælg patient</h3>
+
                 <PatientList onSelectPatient="@onSelectPatient" patienter="@patienter"></PatientList>
             </div>
-            <div class="col-md-4 border p-3">
-                <h3>Vælg lægemiddel</h3>
+
+            <div class="opret-card">
+                <h3 class="opret-selection-title">Vælg lægemiddel</h3>
                 <LaegemiddelList onSelectLægemiddel="@onSelectLægemiddel"></LaegemiddelList>
             </div>
-            <div class="col-md-4 border p-3">
-                <h3>Vælg ordination</h3>
-                <input @onclick='() => selectType(OrdinationType.PN)' type="radio" name="type" >
-                <label for="PN">PN</label><br>
-                <input @onclick='() => selectType(OrdinationType.DagligSkaev)' type="radio" name="type">
-                <label for="Skæv">Daglig skæv</label><br>  
-                <input @onclick='() => selectType(OrdinationType.DagligFast)'type="radio" name="type">
-                <label for="Fast">Daglig fast</label><br><br>
 
-                <button class="btn btn-primary" @onclick="ClickOpret">Opret ordination</button>
+            <div class="opret-card">
+                <h3 class="opret-selection-title">Vælg ordination</h3>
+                
+                <label class="radio-card">
+                    <input @onclick='() => selectType(OrdinationType.PN)' type="radio" name="type" />
+                    <span>PN</span>
+                </label>
+
+                <label class="radio-card">
+                    <input @onclick='() => selectType(OrdinationType.DagligSkaev)' type="radio" name="type" />
+                    <span>Daglig skæv</span>
+                </label>
+
+                <label class="radio-card">
+                    <input @onclick='() => selectType(OrdinationType.DagligFast)' type="radio" name="type" />
+                    <span>Daglig fast</span>
+                </label>
+
+
+
+                <button class="opret-btn" @onclick="ClickOpret">Opret ordination</button>
             </div>
+
         </div>
-    } else if (PageState == State.OpretPN) {
+    }
+    else if (PageState == State.OpretPN)
+    {
         <OpretPN patient=@patient laegemiddel=@laegemiddel anbefaletDosisPerDøgn=@AnbefaletDosisPerDøgn
-            onFortryd="onFortryd" onDone="onDone"></OpretPN>
-    } else if (PageState == State.OpretFast) {
+                 onFortryd="onFortryd" onDone="onDone" />
+    }
+    else if (PageState == State.OpretFast)
+    {
         <OpretDagligFast patient=@patient laegemiddel=@laegemiddel anbefaletDosisPerDøgn=@AnbefaletDosisPerDøgn
-            onFortryd="onFortryd" onDone="onDone"></OpretDagligFast>
-    } else if (PageState == State.OpretSkaev) {
+                         onFortryd="onFortryd" onDone="onDone" />
+    }
+    else if (PageState == State.OpretSkaev)
+    {
         <OpretDagligSkaev patient=@patient laegemiddel=@laegemiddel anbefaletDosisPerDøgn=@AnbefaletDosisPerDøgn
-            onFortryd="onFortryd" onDone="onDone"></OpretDagligSkaev>
+                          onFortryd="onFortryd" onDone="onDone" />
     }
 
-
-    @if (!string.IsNullOrEmpty(message)) {
-        <div class="row">
-            <div class="alert alert-primary alert-dismissible mt-3" role="alert">
-                @message
-                <span type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></span>
+    @if (!string.IsNullOrEmpty(message))
+    {
+        <div class="toast-container">
+            <div class="toast-message show">
+                <div class="toast-icon">✔</div>
+                <div class="toast-text">@message</div>
             </div>
         </div>
     }
+
+
+
+
 </div>
+
 
 @code {
     private PatientResponse? patient;
@@ -99,7 +126,7 @@
 
     private async void delayRemoveMessage()
     {
-        await Task.Delay(30000);
+        await Task.Delay(10000);
         Console.WriteLine("Remove!");
         this.message = "";
         StateHasChanged();

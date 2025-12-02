@@ -1,0 +1,121 @@
+﻿/* ----- WRAPPER ----- */
+.fast-wrapper {
+    width: 90%;
+    max-width: 1300px;
+    margin: auto;
+    padding-top: 40px;
+}
+
+.fast-title {
+    text-align: center;
+    font-size: 2.2rem;
+    color: #0f3d73;
+    font-weight: 700;
+    margin-bottom: 35px;
+}
+
+/* ----- CARD ----- */
+.fast-card {
+    background: white;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+/* ----- SECTIONS ----- */
+.fast-section {
+    margin-bottom: 32px;
+}
+
+.fast-section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding-left: 10px;
+    border-left: 4px solid #0f78c8;
+    color: #0f3d73;
+    margin-bottom: 16px;
+}
+
+/* ----- PATIENT BOX ----- */
+.fast-patient-line {
+    background: #f3f7ff;
+    padding: 12px 16px;
+    border-radius: 10px;
+}
+
+/* ----- GRID LAYOUTS ----- */
+
+.fast-grid-3 {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 22px;
+    margin-bottom: 20px;
+}
+
+.fast-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+@media (max-width: 900px) {
+    .fast-grid-3,
+    .fast-grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ----- FIELDS ----- */
+.fast-field label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+    color: #0f3d73;
+}
+
+.fast-field input {
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #d7e3f4;
+    background: #f8fbff;
+    font-size: 1rem;
+    transition: 0.15s;
+}
+
+.fast-field input:focus {
+    border-color: #0f78c8;
+    background: white;
+}
+
+/* ----- BUTTONS ----- */
+.fast-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+}
+
+.fast-btn-primary {
+    background: #0f78c8;
+    color: white;
+    padding: 12px 26px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.fast-btn-primary:hover {
+    background: #0d6eb8;
+}
+
+.fast-btn-secondary {
+    background: #e8eef5;
+    color: #0f3d73;
+    padding: 12px 26px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.fast-btn-secondary:hover {
+    background: #d8e2ee;
+}

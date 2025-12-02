@@ -13,20 +13,45 @@
 }
 else
 {
-    <h3>Ordinationsdetaljer</h3>
-    <p>Type: PN</p>
-    <p>Startdato: @pn.startDen</p>
-    <p>Slutdato: @pn.slutDen</p>
-    <p>Lægemiddel: @pn.laegemiddel</p>
-    <p>Døgndosis: @pn.doegnDosis()</p>
-    <p>Samlet dosis: @pn.samletDosis()</p>
-    <p>Dosis: @pn.antalEnheder</p>
-    <p>Givet: @pn.getAntalGangeGivet()</p>
-    <div>
-        <input @bind="Dato" type="date" name="giv-dato">
-        <Button class="btn btn-danger" @onclick="GivDosisPN">Anvend ordination</Button>
-    </div>
-    <p>@msg</p>
+        <div class="ord-title">Ordinationsdetaljer</div>
+
+        <div class="ord-grid">
+
+            <div class="ord-label">Type:</div>
+            <div class="ord-value">PN</div>
+
+            <div class="ord-label">Startdato:</div>
+            <div class="ord-value">@pn.startDen.ToString("dd.MM.yyyy HH:mm")</div>
+
+            <div class="ord-label">Slutdato:</div>
+            <div class="ord-value">@pn.slutDen.ToString("dd.MM.yyyy HH:mm")</div>
+
+            <div class="ord-label">Lægemiddel:</div>
+            <div class="ord-value">@pn.laegemiddel.navn</div>
+
+            <div class="ord-label">Døgndosis:</div>
+            <div class="ord-value">@pn.doegnDosis()</div>
+
+            <div class="ord-label">Samlet dosis:</div>
+            <div class="ord-value">@pn.samletDosis()</div>
+
+            <div class="ord-label">Antal enheder:</div>
+            <div class="ord-value">@pn.antalEnheder</div>
+
+            <div class="ord-label">Givet antal gange:</div>
+            <div class="ord-value">@pn.getAntalGangeGivet()</div>
+        </div>
+
+        <div style="margin-top: 22px; display:flex; gap:14px; align-items:center;">
+            <input @bind="Dato" type="date" class="ord-value" style="width:180px;" />
+            <button class="ord-btn" @onclick="GivDosisPN">Anvend ordination</button>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(msg))
+        {
+            <p style="margin-top:14px; color:#8b0000; font-weight:600;">@msg</p>
+        }
+        
 }
 
 @code {

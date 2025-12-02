@@ -1,0 +1,52 @@
+﻿/* --- CARD --- */
+.ord-card {
+    background: #ffffff;
+    padding: 24px 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* --- TITLE --- */
+.ord-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f3d73;
+    margin-bottom: 18px;
+    border-left: 4px solid #0f78c8;
+    padding-left: 10px;
+}
+
+/* --- GRID LAYOUT --- */
+.ord-grid {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 10px 20px;
+}
+
+.ord-label {
+    font-weight: 600;
+    color: #0f3d73;
+    font-size: 0.95rem;
+}
+
+.ord-value {
+    background: #f3f7ff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+/* --- BUTTON --- */
+.ord-btn {
+    background: #d9534f;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.ord-btn:hover {
+    background: #c7423e;
+}

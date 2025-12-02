@@ -1,5 +1,4 @@
 ﻿@namespace ordinationsapp.Shared
-
 @inherits LayoutComponentBase
 
 @using ordinationsapp.Data;
@@ -7,19 +6,62 @@
 
 @if (fast == null)
 {
-    <p><em>Loader Daglig Skæv ordination...</em></p>
+    <p><em>Loader Daglig Fast ordination...</em></p>
 }
 else
 {
-    <h3>Ordinationsdetaljer</h3>
-    <p>Type: Daglig Fast</p>
-    <p>Startdato: @fast.startDen</p>
-    <p>Slutdato: @fast.slutDen</p>
-    <p>Lægemiddel: @fast.laegemiddel</p>
-    <p>MorgenDosis: @fast.MorgenDosis</p>
-    <p>MiddagDosis: @fast.MiddagDosis</p>
-    <p>AftenDosis: @fast.AftenDosis</p>
-    <p>NatDosis: @fast.NatDosis</p>
+        <h3 class="details-title">Ordinationsdetaljer</h3>
+
+        <div class="details-row">
+            <span class="details-label">Type:</span>
+            <span class="details-value">Daglig Fast</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Startdato:</span>
+            <span class="details-value">@fast.startDen</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Slutdato:</span>
+            <span class="details-value">@fast.slutDen</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Lægemiddel:</span>
+            <span class="details-value">@fast.laegemiddel</span>
+        </div>
+
+        <div class="details-row">
+            <span class="details-label">Døgndosis:</span>
+            <span class="details-value">@fast.doegnDosis()</span>
+        </div>
+
+        <h4 class="details-subtitle">Fordeling</h4>
+
+        <div class="dose-list">
+
+            <div class="dose-item">
+                <span class="dose-time">Morgen</span>
+                <span class="dose-amount">@fast.MorgenDosis</span>
+            </div>
+
+            <div class="dose-item">
+                <span class="dose-time">Middag</span>
+                <span class="dose-amount">@fast.MiddagDosis</span>
+            </div>
+
+            <div class="dose-item">
+                <span class="dose-time">Aften</span>
+                <span class="dose-amount">@fast.AftenDosis</span>
+            </div>
+
+            <div class="dose-item">
+                <span class="dose-time">Nat</span>
+                <span class="dose-amount">@fast.NatDosis</span>
+            </div>
+
+        </div>
 }
 
 @code {

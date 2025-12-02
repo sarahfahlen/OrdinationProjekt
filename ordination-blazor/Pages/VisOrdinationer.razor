@@ -6,35 +6,45 @@
 @using ordinationsapp.Model;
 @inject ApiService apiService
 
-<div class="container">
-    <h1>Vis ordinationer</h1>
+<div class="vis-wrapper">
 
-    <br />
+    <h1 class="vis-title">Vis ordinationer</h1>
 
-    <div class="row">
-        <div class="col-md-4 border p-3">
-            <h3>Vælg patient</h3>
+    <div class="vis-grid">
+
+        <!-- Patient Liste -->
+        <div class="vis-card">
+            <h3 class="vis-card-title">Vælg patient</h3>
             <PatientList onSelectPatient="@onSelectPatient" patienter="@patienter"></PatientList>
         </div>
-        <div class="col-md-4 border p-3">
-            <h3>Vælg ordination</h3>
+
+        <!-- Ordination Liste -->
+        <div class="vis-card">
+            <h3 class="vis-card-title">Vælg ordination</h3>
             <OrdinationList onSelectOrdination="@onSelectOrdination" ordinationer="@ordinationer"></OrdinationList>
         </div>
-        <div class="col-md-4 border p-3">
+
+        <!-- Ordination detaljer -->
+        <div class="vis-card vis-card-details">
             @if (ordination != null && ordination.getType().Equals("PN")) {
-                var input = (PN) ordination;
-                <PNDetails pn=input></PNDetails>
-            } else if (ordination != null && ordination.getType().Equals("DagligSkæv")) {
-                var input = (DagligSkæv) ordination;
-                <SkævDetails skæv=input></SkævDetails>
-            } else if (ordination != null && ordination.getType().Equals("DagligFast")) {
-                var input = (DagligFast) ordination;
-                <FastDetails fast=input></FastDetails>
-            } 
+                <PNDetails pn="@( (PN)ordination )"></PNDetails>
+            }
+            else if (ordination != null && ordination.getType().Equals("DagligSkæv")) {
+                <SkævDetails skæv="@( (DagligSkæv)ordination )"></SkævDetails>
+            }
+            else if (ordination != null && ordination.getType().Equals("DagligFast")) {
+                <FastDetails fast="@( (DagligFast)ordination )"></FastDetails>
+            }
+            else
+            {
+                <div class="vis-placeholder">Vælg en patient og en ordination</div>
+            }
         </div>
+
     </div>
 
 </div>
+
 
 @code {
     private PatientResponse? patient;

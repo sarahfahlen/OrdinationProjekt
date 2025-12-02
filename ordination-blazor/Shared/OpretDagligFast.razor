@@ -1,90 +1,96 @@
 @namespace ordinationsapp.Shared
 
-@using shared.Model;
-@using ordinationsapp.Model;
-@using ordinationsapp.Data;
+@using shared.Model
+@using ordinationsapp.Model
+@using ordinationsapp.Data
 @inject ApiService apiService
 
-<div class="container">
-    <h1>Opret ordination (Daglig fast)</h1>
+<div class="fast-wrapper">
 
-    <div class="row">
-        <p>Patient: @Patient?.navn (@Patient?.cprnr)</p>
-        <div class="form-group row">
-            <label for="laegemiddel" class="col-sm-4 col-form-label">Lægemiddel</label>
-            <div class="col-sm-8">
-            <input readonly type="text" class="form-control" id="laegemiddel" value=@laegemiddel?.navn>
-            </div>
-        </div>
+    <h1 class="fast-title">Opret ordination (Daglig fast)</h1>
 
-        <div class="form-group row">
-            <label for="startdato" class="col-sm-4 col-form-label">Startdato for ordination</label>
-            <div class="col-sm-8">
-            <input @bind="StartDato" type="date" class="form-control" id="startdato">
+    <div class="fast-card">
+
+        <!-- Patient -->
+        <div class="fast-section">
+            <div class="fast-section-title">Patientoplysninger</div>
+
+            <div class="fast-patient-line">
+                <strong>@Patient?.navn</strong> - @Patient?.cprnr
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="slutdato" class="col-sm-4 col-form-label">Slutdato for ordination</label>
-            <div class="col-sm-8">
-            <input @bind="SlutDato" type="date" class="form-control" id="slutdato">
+        <!-- Ordinationsoplysninger -->
+        <div class="fast-section">
+            <div class="fast-section-title">Ordinationsoplysninger</div>
+
+            <div class="fast-grid-3">
+                <div class="fast-field">
+                    <label>Lægemiddel</label>
+                    <input readonly type="text" value="@laegemiddel?.navn" />
+                </div>
+
+                <div class="fast-field">
+                    <label>Startdato</label>
+                    <input type="date" @bind="StartDato" />
+                </div>
+
+                <div class="fast-field">
+                    <label>Slutdato</label>
+                    <input type="date" @bind="SlutDato" />
+                </div>
+            </div>
+
+            <div class="fast-field">
+                <label>Anbefalet antal enheder pr. døgn</label>
+                <input readonly value="@AnbefaletDosisPerDøgnRounded" />
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="anbefalet-enheder" class="col-sm-4 col-form-label">Anbefalet antal enheder per døgn</label>
-            <div class="col-sm-8">
-                <input readonly type="text" class="form-control" id="anbefalet-enheder" value=@AnbefaletDosisPerDøgnRounded>
+        <!-- Doser -->
+        <div class="fast-section">
+            <div class="fast-section-title">Døgnfordeling af doser</div>
+
+            <div class="fast-grid-4">
+
+                <div class="fast-field">
+                    <label>Antal morgen</label>
+                    <input type="number" @bind="antalMorgen" />
+                </div>
+
+                <div class="fast-field">
+                    <label>Antal middag</label>
+                    <input type="number" @bind="antalMiddag" />
+                </div>
+
+                <div class="fast-field">
+                    <label>Antal aften</label>
+                    <input type="number" @bind="antalAften" />
+                </div>
+
+                <div class="fast-field">
+                    <label>Antal nat</label>
+                    <input type="number" @bind="antalNat" />
+                </div>
             </div>
         </div>
 
-        <div class="form-group row">
-            <label for="antal-morgen" class="col-sm-4 col-form-label">Antal morgen</label>
-            <div class="col-sm-8">
-            <input @bind="antalMorgen" type="number" class="form-control" id="antal-morgen">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="antal-middag" class="col-sm-4 col-form-label">Antal middag</label>
-            <div class="col-sm-8">
-            <input @bind="antalMiddag" type="number" class="form-control" id="antal-middag">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="antal-aften" class="col-sm-4 col-form-label">Antal aften</label>
-            <div class="col-sm-8">
-            <input @bind="antalAften" type="number" class="form-control" id="antal-aften">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="antal-nat" class="col-sm-4 col-form-label">Antal nat</label>
-            <div class="col-sm-8">
-            <input @bind="antalNat" type="number" class="form-control" id="antal-nat">
-            </div>
+        <!-- Knapper -->
+        <div class="fast-buttons">
+            <button class="fast-btn-primary" @onclick="Opret">Opret ordination</button>
+            <button class="fast-btn-secondary" @onclick="() => onFortryd?.Invoke()">Fortryd</button>
         </div>
 
-        
-        <div class="form-group row">
-            <div class="col-sm-8">
-            <button class="btn btn-primary" @onclick="Opret">Opret ordination</button>
-            <button class="btn btn-secondary" @onclick="() => onFortryd?.Invoke()">Fortryd</button>
-            </div>
-        </div>
     </div>
 </div>
 
 @code {
-    [Parameter]
-    public PatientResponse? Patient { get; set; }
-    [Parameter]
-    public Laegemiddel? laegemiddel { get; set; }
-    [Parameter]
-    public double AnbefaletDosisPerDøgn { get; set; }
-    public string AnbefaletDosisPerDøgnRounded { get { return AnbefaletDosisPerDøgn.ToString("#.##");}}
-    [Parameter]
-    public Action? onFortryd { get; set; }
-    [Parameter]
-    public Action<string>? onDone { get; set; }
+    [Parameter] public PatientResponse? Patient { get; set; }
+    [Parameter] public Laegemiddel? laegemiddel { get; set; }
+    [Parameter] public double AnbefaletDosisPerDøgn { get; set; }
+    public string AnbefaletDosisPerDøgnRounded => AnbefaletDosisPerDøgn.ToString("#.##");
+    [Parameter] public Action? onFortryd { get; set; }
+    [Parameter] public Action<string>? onDone { get; set; }
 
     private int antalMorgen = 0;
     private int antalMiddag = 0;
@@ -94,13 +100,15 @@
     private DateTime SlutDato { get; set; } = DateTime.Now.AddDays(3);
 
     private async void Opret() {
-        if (Patient == null || laegemiddel == null) {
-            return;
-        }
-        Console.WriteLine("Opret");
-        await apiService.OpretDagligFast(Patient.id, laegemiddel.LaegemiddelId, antalMorgen, antalMiddag, antalAften, antalNat, StartDato, SlutDato);
-        Console.WriteLine("Oprettet!");
+        if (Patient == null || laegemiddel == null) return;
+
+        await apiService.OpretDagligFast(
+            Patient.id,
+            laegemiddel.LaegemiddelId,
+            antalMorgen, antalMiddag, antalAften, antalNat,
+            StartDato, SlutDato
+        );
+
         onDone?.Invoke($"Oprettet Daglig Fast ordination for {Patient.navn}!");
     }
-
 }

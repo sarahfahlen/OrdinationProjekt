@@ -1,0 +1,211 @@
+﻿.opret-wrapper {
+    width: 90%;
+    max-width: 1300px;
+    margin: auto;
+    padding-top: 35px;
+}
+
+.opret-title {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #0f3d73;
+}
+
+.opret-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.opret-card {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    min-height: 330px;
+}
+
+/* List-group premium styling */
+.opret-card .list-group {
+    border-radius: 14px;
+    overflow: hidden;
+    background: white;
+}
+
+.opret-card .list-group-item {
+    border: none !important;
+    border-bottom: 1px solid #e4edf7 !important;
+    padding: 14px 18px !important;
+    cursor: pointer !important;
+    background: white !important;
+    transition: 0.18s;
+}
+
+.opret-card .list-group-item:hover {
+    background: #e8f2ff !important;
+}
+
+.opret-card .list-group-item.active {
+    background: #0f78c8 !important;
+    color: white !important;
+    font-weight: 600;
+}
+/* ---- RADIO OPTIONS ---- */
+
+.type-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    margin-bottom: 14px;
+    cursor: pointer;
+}
+
+.type-option input[type="radio"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.type-option span {
+    cursor: pointer;
+    user-select: none;
+}
+/* ------------ RADIO CARD (EPJ / MEDICAL STYLE) ------------ */
+
+.radio-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #ffffff;
+    border: 2px solid #e4edf7;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: 0.18s ease-in-out;
+    font-size: 1rem;
+}
+
+/* Hover */
+.radio-card:hover {
+    border-color: #bcd4ff;
+    background: #f3f7ff;
+}
+
+/* Selve radio-knappen */
+.radio-card input[type="radio"] {
+    transform: scale(1.25);
+    cursor: pointer;
+}
+
+/* Når radioen er valgt */
+.radio-card input[type="radio"]:checked + span {
+    font-weight: 600;
+    color: #0f78c8;
+}
+
+/* Når radioen er valgt → highlight hele kortet */
+.radio-card input[type="radio"]:checked ~ * {
+    color: #0f78c8;
+}
+
+.radio-card input[type="radio"]:checked {
+    accent-color: #0f78c8;
+}
+
+.radio-card input[type="radio"]:checked::before {
+    background-color: #0f78c8;
+}
+
+/* Markér hele kortet ved valg */
+.radio-card input[type="radio"]:checked ~ span,
+.radio-card input[type="radio"]:checked {
+    font-weight: 600;
+}
+
+.radio-card:has(input[type="radio"]:checked) {
+    border-color: #0f78c8;
+    background: #e8f2ff;
+}
+
+.opret-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 14px 18px;
+    background: linear-gradient(135deg, #0f78c8, #0d6eb8);
+    color: #ffffff;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    margin-top: 12px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    box-shadow: 0 4px 10px rgba(15, 120, 200, 0.25);
+}
+
+/* Hover */
+.opret-btn:hover {
+    background: linear-gradient(135deg, #0f89e5, #0d6eb8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(15, 120, 200, 0.35);
+}
+
+/* Når man klikker */
+.opret-btn:active {
+    transform: scale(0.98);
+    box-shadow: 0 3px 8px rgba(15, 120, 200, 0.2);
+}
+/* ---- MODERN SUCCESS NOTIFICATION ---- */
+/* --- Toast container: nederste venstre hjørne --- */
+.toast-container {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    z-index: 2000;
+}
+
+/* --- Toast besked --- */
+.toast-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    background: #e9f2ff;                 /* Lys blå baggrund */
+    border-left: 6px solid #0f78c8;      /* Din primære EPJ-blå */
+    padding: 14px 20px;
+    border-radius: 12px;
+    min-width: 260px;
+
+    font-size: 0.95rem;
+    color: #0f3d73;                      /* Mørk professionel blå */
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+
+    opacity: 0;
+    transform: translateX(-120%);
+    transition: transform .45s ease, opacity .45s ease;
+}
+
+.toast-message.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast-icon {
+    font-size: 1.2rem;
+    color: #0f78c8;                      /* Samme EPJ-blå */
+}
+.opret-selection-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0f3d73;
+    margin-bottom: 16px;
+    border-left: 4px solid #0f78c8;
+    padding-left: 10px;
+}
+
+
+

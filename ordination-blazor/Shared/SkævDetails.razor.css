@@ -1,0 +1,66 @@
+﻿.details-card {
+    background: white;
+    padding: 24px 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+.details-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #0f3d73;
+    margin-bottom: 20px;
+}
+
+.details-row {
+    display: grid;
+    grid-template-columns: 160px auto;
+    margin-bottom: 12px;
+}
+
+.details-label {
+    font-weight: 600;
+    color: #0f3d73;
+}
+
+.details-value {
+    background: #f3f7ff;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #d7e3f4;
+}
+
+.details-subtitle {
+    margin-top: 28px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f3d73;
+}
+
+/* Doser liste */
+.dose-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dose-item {
+    display: grid;
+    grid-template-columns: 120px auto;
+    background: #f8fbff;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #d7e3f4;
+}
+
+.dose-time {
+    font-weight: 600;
+    color: #0f3d73;
+}
+
+.dose-amount {
+    text-align: right;
+    font-weight: 600;
+    color: #0f3d73;
+}

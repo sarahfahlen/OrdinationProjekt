@@ -1,0 +1,56 @@
+﻿/* Wrapper */
+.vis-wrapper {
+    width: 90%;
+    max-width: 1400px;
+    margin: auto;
+    padding-top: 30px;
+}
+
+/* Titel */
+.vis-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f3d73;
+    margin-bottom: 32px;
+}
+
+/* Grid layout */
+.vis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.2fr;
+    gap: 24px;
+}
+
+/* Kort styling */
+.vis-card {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* Titel i kort */
+.vis-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f3d73;
+    margin-bottom: 16px;
+    border-left: 4px solid #0f78c8;
+    padding-left: 10px;
+}
+
+/* Placeholder */
+.vis-placeholder {
+    text-align: center;
+    color: #7a8ca5;
+    margin-top: 40px;
+    font-size: 1rem;
+}
+
+/* Mobil layout */
+@media(max-width: 1000px) {
+    .vis-grid {
+        grid-template-columns: 1fr;
+    }
+}

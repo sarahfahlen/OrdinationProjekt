@@ -1,0 +1,260 @@
+﻿/* ----- WRAPPER ----- */
+.skaev-wrapper {
+    width: 90%;
+    max-width: 1300px;
+    margin: auto;
+    padding-top: 40px;
+}
+
+.skaev-title {
+    text-align: center;
+    font-size: 2.1rem;
+    color: #0f3d73;
+    font-weight: 700;
+    margin-bottom: 35px;
+}
+
+/* ----- CARD ----- */
+.skaev-card {
+    background: white;
+    padding: 28px 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+}
+
+/* ----- SECTION ----- */
+.skaev-section {
+    margin-bottom: 32px;
+}
+
+.skaev-section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f3d73;
+    margin-bottom: 12px;
+    border-left: 4px solid #0f78c8;
+    padding-left: 10px;
+}
+/* 3 kolonner: Lægemiddel – Startdato – Slutdato */
+.skaev-grid-3 {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; /* lægemiddel bredere */
+    gap: 22px;
+    margin-bottom: 20px;
+}
+
+/* Gør inputs ens højde */
+.skaev-grid-3 .skaev-field input {
+    height: 46px;
+}
+
+/* Mobilvenlig stacking */
+@media(max-width: 900px) {
+    .skaev-grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Patient info */
+.skaev-patient-line {
+    background: #f3f7ff;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+/* ----- INPUT FIELDS ----- */
+.skaev-field label {
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #0f3d73;
+}
+
+.skaev-field input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d7e3f4;
+    background: #f8fbff;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: 0.15s;
+}
+
+.skaev-field input:focus {
+    border-color: #0f78c8;
+    background: #ffffff;
+}
+
+/* ----- GRID RULES ----- */
+
+/* Lægemiddel + Anbefalet dosis skal være fuld bredde */
+.skaev-field-full {
+    grid-column: span 2;
+}
+
+/* Startdato + Slutdato side by side */
+.skaev-daterow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+    margin-top: 6px;
+}
+
+/* ----- DOSIS ROW ----- */
+.skaev-dose-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 18px;
+    margin-top: 15px;
+}
+/* Wrapper til hele rækken (tid + mængde + knap) */
+.skaev-dose-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;   /* Gør at alt står på linje nederst */
+    margin-top: 10px;
+}
+
+/* De to felter skal fylde ens */
+.skaev-dose-row .skaev-field {
+    flex: 1;
+}
+
+/* Knappen i egen flex-boks — så den holder formen */
+.skaev-dose-btn-wrapper {
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Selve knappen */
+.skaev-dose-btn {
+    background: #0f78c8;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 10px;
+    height: 48px;             /* Samme højde som input */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    white-space: nowrap;      /* Gør så teksten ikke brydes */
+    transition: 0.15s;
+}
+
+.skaev-dose-btn:hover {
+    background: #0d6eb8;
+}
+
+
+.skaev-dose-small {
+    background: #0f78c8;
+    color: white;
+    border: none;
+    padding: 0 22px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.18s;
+}
+
+.skaev-dose-small:hover {
+    background: #0d6eb8;
+}
+
+/* ----- DOSE LIST ----- */
+.skaev-dose-list {
+    margin-top: 18px;
+    padding: 0;
+    list-style: none;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #d7e3f4;
+}
+
+.skaev-dose-list li {
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eef3fb;
+}
+
+.skaev-dose-list li:last-child {
+    border-bottom: none;
+}
+
+/* ----- BUTTON ROW ----- */
+.skaev-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 14px;
+}
+
+.skaev-btn-primary {
+    background: #0f78c8;
+    color: white;
+    padding: 12px 26px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.skaev-btn-primary:hover {
+    background: #0d6eb8;
+}
+
+.skaev-btn-secondary {
+    background: #e8eef5;
+    color: #0f3d73;
+    padding: 12px 26px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.skaev-btn-secondary:hover {
+    background: #d8e2ee;
+}
+
+/* ----- ERROR MESSAGE ----- */
+.skaev-error {
+    background: #ffe4e4;
+    border-left: 6px solid #d9534f;
+    color: #8b0000;
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+.skaev-dose-item {
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e3ecf6;
+    font-weight: 600;
+}
+
+.skaev-dose-time {
+    width: 80px;
+    text-align: left;
+    color: #0f3d73;
+}
+
+.skaev-dose-amount {
+    width: 80px;
+    text-align: right;
+    color: #0f3d73;
+}
+.skaev-dose-separator {
+    color: #9ab1c9;        /* lys grå/blå separator */
+    font-weight: 600;
+    margin: 0 14px;        /* afstand mellem tid og mængde */
+    font-size: 1rem;
+}
+
+
