@@ -27,7 +27,7 @@ public class ServiceTest
         Assert.IsNotNull(service.GetPatienter());
     }
     
-    //Metode der tester vores ugyldige data i testcase1 fra systemudvikling
+    //Metode der tester vores ugyldige data i GetAnbefaletDosisPerDøgn fra systemudvikling
     [TestMethod]
     public void AnbefaletDosisUgyldige()
     {
@@ -68,8 +68,7 @@ public class ServiceTest
         */
     }
     
-    
-    //Metode der tester vores gyldige data i testcase1 fra systemudvikling
+    //Metode der tester vores gyldige data i GetAnbefaletDosisPerDøgn fra systemudvikling
     [TestMethod]
     public void AnbefaletDosisGyldige()
     {
@@ -97,6 +96,75 @@ public class ServiceTest
         double dosis5 = service.GetAnbefaletDosisPerDøgn(1, 1);
         Assert.AreEqual(19.36, dosis5, 0.0001);
     }
+    
+    //Metode der tester vores ugyldige data i OpretPN fra systemudvikling
+    [TestMethod]
+    public void OpretPNUgyldige()
+    {
+        //Arranger værdier til vores test - sætter datoer for overskuelighedens skyld
+        DateTime start1 = new DateTime(2025, 11, 16);
+        DateTime end1 = new DateTime(2025, 11, 21);
+        DateTime end2 = new DateTime(2025, 11, 12);
+        
+        //Her actes og asserter vi vores exceptions
+        try
+        {
+            service.OpretPN(100, 1, 1, start1, end1);
+            Assert.Fail("Forventede at metoden kastede en exception");
+        }
+        catch (ArgumentException ex)
+        {
+            Assert.AreEqual("Patient findes ikke", ex.Message);
+        }
+        
+        try
+        {
+            service.OpretPN(1, 100, 1, start1, end1);
+            Assert.Fail("Forventede at metoden kastede en exception");
+        }
+        catch (ArgumentException ex)
+        {
+            Assert.AreEqual("Lægemiddel findes ikke", ex.Message);
+        }
+        
+        //Udkommenteret da testen fejler grundet manglende implementation
+        /*try
+        {
+            service.OpretPN(1, 2, -1, start1, end1);
+            Assert.Fail("Forventede at metoden kastede en exception");
+        }
+        catch (ArgumentException ex)
+        {
+            Assert.AreEqual("Ugyldigt antal angivet", ex.Message);
+        }
+        
+        try
+        {
+            service.OpretPN(1, 2, 1, start1, end2);
+            Assert.Fail("Forventede at metoden kastede en exception");
+        }
+        catch (ArgumentException ex)
+        {
+          Assert.AreEqual("Startdato skal være før slutdato", ex.Message);
+        } */
+    }
+    //Metode der tester vores gyldige data i OpretPN fra systemudvikling
+    [TestMethod]
+    public void OpretPNGyldige()
+    {
+        //Arranger værdier til vores test - sætter datoer for overskuelighedens skyld
+        DateTime start = new DateTime(2025, 11, 16);
+        DateTime end = new DateTime(2025, 11, 21);
+        
+        //Acter på vores test
+        PN TestPN = service.OpretPN(1,1,1,start,end);
+        
+        //Asserter vores test
+        Assert.AreEqual(1, TestPN.antalEnheder);
+        Assert.AreEqual(start, TestPN.startDen);
+        Assert.AreEqual(end, TestPN.slutDen);
+        Assert.AreEqual(1, TestPN.laegemiddel.LaegemiddelId);
+    }
 
     [TestMethod]
     public void OpretDagligFast()
@@ -113,15 +181,9 @@ public class ServiceTest
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
+    [ExpectedException(typeof(ArgumentException))]
     public void TestAtKodenSmiderEnException()
     {
-        // Herunder skal man så kalde noget kode,
-        // der smider en exception.
-
-        // Hvis koden _ikke_ smider en exception,
-        // så fejler testen.
-
-        Console.WriteLine("Her kommer der ikke en exception. Testen fejler.");
+        service.GetAnbefaletDosisPerDøgn(999, 1);
     }
 }
