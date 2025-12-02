@@ -188,6 +188,10 @@ public class DataService
         db.SaveChanges();
 
         return ordination;
+        
+        // Skal fikses:
+        // Startdato kan godt være efter slutdato. 
+        // Antal doser kan godt have tomt array
     }
     
     //Her kan implementeres at der er overskredet daglig dosis anbefaling
