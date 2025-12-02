@@ -67,13 +67,36 @@ public class ApiService
         return newDagligFast;
     }
 
-    public async Task<DagligSkæv> OpretDagligSkaev(int patientId, int laegemiddelId,
-        Dosis[] doser, DateTime startDato, DateTime slutDato) {
-
+    public async Task<DagligSkæv> OpretDagligSkaev(
+        int patientId, int laegemiddelId,
+        Dosis[] doser, DateTime startDato, DateTime slutDato)
+    {
         string url = $"{baseAPI}ordinationer/dagligskaev/";
         DagligSkaevDTO opret = new(patientId, laegemiddelId, doser, startDato, slutDato);
-        HttpResponseMessage res = await http.PostAsJsonAsync<DagligSkaevDTO>(url, opret);
-        string json = res.Content.ReadAsStringAsync().Result;
+
+        HttpResponseMessage res = await http.PostAsJsonAsync(url, opret);
+
+        if (!res.IsSuccessStatusCode)
+        {
+            string errorJson = await res.Content.ReadAsStringAsync();
+
+            try
+            {
+                using var doc = JsonDocument.Parse(errorJson);
+                string msg = doc.RootElement.GetProperty("msg").GetString() ?? "Ukendt fejl";
+                throw new ApplicationException(msg);
+            }
+            catch (ApplicationException)
+            {
+                throw;
+            }
+            catch
+            {
+                throw new ApplicationException("Der opstod en fejl ved oprettelse af daglig skæv ordination.");
+            }
+        }
+
+        string json = await res.Content.ReadAsStringAsync();
         DagligSkæv newDagligSkaev = JsonSerializer.Deserialize<DagligSkæv>(json)!;
         return newDagligSkaev;
     }

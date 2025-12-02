@@ -90,7 +90,22 @@ app.MapPost("/api/ordinationer/dagligfast/", (DataService service, DagligFastDTO
 
 app.MapPost("/api/ordinationer/dagligskaev/", (DataService service, DagligSkaevDTO dto) =>
 {
-    return service.OpretDagligSkaev(dto.patientId, dto.laegemiddelId, dto.doser, dto.startDato, dto.slutDato);
+    try
+    {
+        var ordination = service.OpretDagligSkaev(
+            dto.patientId,
+            dto.laegemiddelId,
+            dto.doser,
+            dto.startDato,
+            dto.slutDato
+        );
+
+        return Results.Ok(ordination);
+    }
+    catch (ArgumentException ex)
+    {
+        return Results.BadRequest(new { msg = ex.Message });
+    }
 });
 
 app.MapPut("/api/ordinationer/pn/{id}/anvend", (DataService service, int id, DateTimeDTO dto) =>
