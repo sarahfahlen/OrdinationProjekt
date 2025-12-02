@@ -26,11 +26,12 @@ public class ServiceTest
     {
         Assert.IsNotNull(service.GetPatienter());
     }
-    //Metode der tester vores testcase fra systemudvikling - vi ved godt den er for lang og ikke rigtigt "opdelt", men Peter har godkendt
+    
+    //Metode der tester vores ugyldige data i testcase1 fra systemudvikling
     [TestMethod]
-    public void AnbefaletDosis()
+    public void AnbefaletDosisUgyldige()
     {
-        //Her hentes den patient jeg tester på - senere ændrer jeg vægt for hver patient --> arranger
+        //Her hentes den patient jeg tester på for at ændre vægt til testcasen --> Arrange
         Patient TestPatient = service.GetPatienter().Where(p => p.PatientId == 1).FirstOrDefault();
         
         //Her actes og asserter vi vores exceptions
@@ -53,6 +54,7 @@ public class ServiceTest
             Assert.AreEqual("Lægemidlet findes ikke", ex.Message);
         }
         //Denne metode er udkommenteret, da denne funktionalitet endnu ikke er implementeret 
+        /*
         try 
         {
             TestPatient.vaegt = 0;
@@ -63,6 +65,16 @@ public class ServiceTest
         {
             Assert.AreEqual("Patientens vægt er ugyldig", ex.Message);
         }
+        */
+    }
+    
+    
+    //Metode der tester vores gyldige data i testcase1 fra systemudvikling
+    [TestMethod]
+    public void AnbefaletDosisGyldige()
+    {
+        //Her hentes den patient jeg tester på - senere ændrer jeg vægt for hver patient --> arranger
+        Patient TestPatient = service.GetPatienter().Where(p => p.PatientId == 1).FirstOrDefault();
         
         //Her actes og assertes vores gyldige værdier
         TestPatient.vaegt = 1;
