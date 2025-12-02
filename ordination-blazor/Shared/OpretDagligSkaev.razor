@@ -9,6 +9,13 @@
 <div class="container">
     <h1>Opret ordination (Daglig skæv)</h1>
 
+    @if (!string.IsNullOrEmpty(Fejlbesked))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Fejlbesked
+        </div>
+    }
+    
     <div class="row">
         <p>Patient: @Patient?.navn (@Patient?.cprnr)</p>
         <div class="form-group row">
@@ -46,7 +53,7 @@
             <input @bind="Tid" type="time" class="form-control" id="dosis-tid">
             </div>
             <div class="col-sm-4">
-            <input @bind="Antal" type="number" class="form-control" id="dosis-antal" placeholder="Mængde">
+                <input @bind="Antal" type="number" step="0.01" class="form-control" id="dosis-antal" placeholder="Mængde">
             </div>
             <div class="col-sm-2">
                 <button class="btn btn-primary" @onclick="OpretDosis">Opret dosis</button>
@@ -86,7 +93,7 @@
     public Laegemiddel? laegemiddel { get; set; }
     [Parameter]
     public double AnbefaletDosisPerDøgn { get; set; }
-    public string AnbefaletDosisPerDøgnRounded { get { return AnbefaletDosisPerDøgn.ToString("#.##"); } }
+    public string AnbefaletDosisPerDøgnRounded { get { return AnbefaletDosisPerDøgn.ToString(""); } }
     [Parameter]
     public Action? onFortryd { get; set; }
     [Parameter]
@@ -95,25 +102,69 @@
     private DateTime StartDato { get; set; } = DateTime.Now;
     private DateTime SlutDato { get; set; } = DateTime.Now.AddDays(3);
     private List<Dosis> doser = new List<Dosis>();
+    private string? Fejlbesked;
 
     private TimeOnly Tid { get; set; }
-    private int Antal { get; set; }
+    private double Antal { get; set; }
 
-    private async void Opret() {
-        if (Patient == null || laegemiddel == null) {
+    private async void Opret()
+    {
+        Fejlbesked = null;
+
+        if (Patient == null || laegemiddel == null)
+            return;
+
+        // 🚫 må ikke oprette ordination uden doser
+        if (doser.Count == 0)
+        {
+            Fejlbesked = "Fejl: Du skal tilføje mindst én dosis før du kan oprette ordinationen.";
             return;
         }
-        Console.WriteLine("Opret");
-        var ordination = await apiService.OpretDagligSkaev(Patient.id, laegemiddel.LaegemiddelId, doser.ToArray(), StartDato, SlutDato);
-        Console.WriteLine("Oprettet!");
-        Console.WriteLine(ordination);
-        onDone?.Invoke($"Oprettet Daglig Skæv ordination for {Patient.navn}!");
+
+        try
+        {
+            var ordination = await apiService.OpretDagligSkaev(
+                Patient.id,
+                laegemiddel.LaegemiddelId,
+                doser.ToArray(),
+                StartDato,
+                SlutDato
+            );
+
+            onDone?.Invoke($"Oprettet Daglig Skæv ordination for {Patient.navn}!");
+        }
+        catch (Exception ex)
+        {
+            Fejlbesked = ex.Message;
+        }
     }
 
-    private void OpretDosis() {
-        Console.WriteLine(Tid);
-        Console.WriteLine(Antal);
+
+    private void OpretDosis()
+    {
+        Fejlbesked = null;
+
+        // antal må ikke være 0 eller negativt
+        if (Antal <= 0)
+        {
+            Fejlbesked = "Fejl: Antal skal være større end 0.";
+            return;
+        }
+
+        // udregn ny samlet dosis
+        double nuværendeSum = doser.Sum(d => d.antal);
+        double nySum = nuværendeSum + Antal;
+
+        if (nySum > AnbefaletDosisPerDøgn)
+        {
+            Fejlbesked =
+                $"Fejl: Den samlede daglige dosis ({nySum:F2}) overstiger den anbefalede dosis ({AnbefaletDosisPerDøgn:F2}).";
+            return;
+        }
+
+        // alt OK → tilføj dosis
         doser.Add(new Dosis(Util.CreateTimeOnly(Tid), Antal));
     }
+
 
 }

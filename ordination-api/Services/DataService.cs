@@ -175,16 +175,34 @@ public class DataService
         Patient patient = db.Patienter.Find(patientId);
         if (patient == null)
             throw new ArgumentException("Patient findes ikke");
-        
+    
         Laegemiddel laegemiddel = db.Laegemiddler.Find(laegemiddelId);
         if (laegemiddel == null)
             throw new ArgumentException("Lægemiddel findes ikke");
         
+        if (doser.Length == 0)
+            throw new ArgumentException("Der skal være mindst én dosis.");
+
+        if (doser.Any(d => d.antal <= 0))
+            throw new ArgumentException("Antal i en dosis skal være større end 0.");
+
+        // Beregn den totale daglige dosis ud fra de indtastede doser
+        double samletDosis = doser.Sum(d => d.antal);
+
+        // Hent den anbefalede maksimale døgndosis
+        double anbefaletDosis = GetAnbefaletDosisPerDøgn(patientId, laegemiddelId);
+
+        // Tjek om den samlede dosis overstiger den anbefalede
+        if (samletDosis > anbefaletDosis)
+        {
+            throw new ArgumentException($"Den samlede daglige dosis ({samletDosis}) overstiger den anbefalede dosis ({anbefaletDosis}).");
+        }
+    
         DagligSkæv ordination = new DagligSkæv(startDato, slutDato, laegemiddel, doser);
 
         db.DagligSkæve.Add(ordination);
         patient.ordinationer.Add(ordination);
-        
+    
         db.SaveChanges();
 
         return ordination;
