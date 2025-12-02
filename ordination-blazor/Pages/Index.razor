@@ -1,11 +1,36 @@
 ﻿@page "/"
 
-@using ordinationsapp.Data;
+<PageTitle>Medicinordination</PageTitle>
 
-@inject ApiService apiService
+<div class="hero">
+    <h1>Medicinordination</h1>
+    <p class="tagline">
+        Et moderne og sikkert værktøj til registrering og overblik over medicinordinationer.
+    </p>
 
-<PageTitle>Ordinationsapp</PageTitle>
+    <div class="hero-buttons">
+        <a href="/Opret" class="hero-btn primary">➕ Opret ordination</a>
+        <a href="/Vis" class="hero-btn secondary">📄 Vis ordinationer</a>
+    </div>
+</div>
 
-<h1>Velkommen til Medicinordination</h1>
+<h2 class="section-title">Om systemet</h2>
 
-<p>Vælg en af mulighederne oppe fra menuen.</p>
+<div class="info-section">
+
+    <div class="info-card">
+        <h3>✔ Forsvarlig doseringsangivelse</h3>
+        <p>Dosering registreres præcist i forhold til ordineret mængde, administrationshyppighed og klinisk vurdering.</p>
+    </div>
+
+    <div class="info-card">
+        <h3>✔ Tydelig medicinadministration</h3>
+        <p>Ordinationer præsenteres i et klart og struktureret format, der understøtter sikker administration og reducerer risiko for fejl.</p>
+    </div>
+
+    <div class="info-card">
+        <h3>✔ Klinisk sammenhæng i patientforløbet</h3>
+        <p>Dosering, tidspunkter og ordinationsforløb dokumenteres ensartet, så det understøtter kontinuitet i sygeplejen og tværfagligt samarbejde.</p>
+    </div>
+
+</div>

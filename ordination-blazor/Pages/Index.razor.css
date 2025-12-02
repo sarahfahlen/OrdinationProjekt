@@ -1,4 +1,96 @@
-h1 {
-    background-color: yellow;
-    color: blue;
+/* Hero Section */
+.hero {
+    text-align: center;
+    padding: 3.5rem 1rem;
+    background: linear-gradient(to bottom right, #e8f4ff, #f7fbff);
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    margin-bottom: 3rem;
+}
+
+.hero h1 {
+    font-size: 2.6rem;
+    color: #0f4c81;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+}
+
+.tagline {
+    color: #46627a;
+    font-size: 1.2rem;
+    max-width: 650px;
+    margin: 0 auto 2rem auto;
+}
+
+/* Hero buttons */
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.hero-btn {
+    padding: 0.9rem 1.8rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: 0.2s;
+}
+
+.hero-btn.primary {
+    background: #0f78c8;
+    color: white;
+    box-shadow: 0 3px 10px rgba(15, 120, 200, 0.25);
+}
+
+.hero-btn.primary:hover {
+    background: #0d6eb8;
+    transform: translateY(-3px);
+}
+
+.hero-btn.secondary {
+    background: white;
+    color: #0f4c81;
+    border: 2px solid #bcd9ef;
+}
+
+.hero-btn.secondary:hover {
+    background: #eef7ff;
+    transform: translateY(-3px);
+}
+
+/* Section title */
+.section-title {
+    text-align: center;
+    color: #0f4c81;
+    margin-bottom: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Info cards */
+.info-section {
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.info-card {
+    background: #ffffff;
+    padding: 1.6rem;
+    border-radius: 14px;
+    border-left: 6px solid #7bb8e8;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.05);
+    transition: 0.15s;
+}
+
+.info-card:hover {
+    transform: translateY(-3px);
+    background: #f7fbff;
+}
+
+.info-card h3 {
+    color: #0f4c81;
+    margin-top: 0;
 }
