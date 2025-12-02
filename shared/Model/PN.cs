@@ -27,17 +27,22 @@ public class PN : Ordination {
 
     public override double doegnDosis()
     {
-	    DateTime min = slutDen;
-	    DateTime max = startDen;
-	    foreach (Dato dosis in dates)
+	    double doegndosis = 0;
+	    if (dates.Count > 0)
 	    {
-		    if (dosis.dato < min) 
-			    min = dosis.dato;
-		    if (dosis.dato > max)
-			    max = dosis.dato;
+		    DateTime min = slutDen;
+		    DateTime max = startDen;
+		    foreach (Dato dosis in dates)
+		    {
+			    if (dosis.dato < min)
+				    min = dosis.dato;
+			    if (dosis.dato > max)
+				    max = dosis.dato;
+		    }
+
+		    int antaldage = (max - min).Days + 1;
+		    doegndosis = samletDosis() / antaldage;
 	    }
-	    int antaldage = (max - min).Days + 1;
-	    double doegndosis = samletDosis()/antaldage;
 	    return doegndosis;
     }
 
